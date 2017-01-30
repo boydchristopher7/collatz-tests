@@ -32,30 +32,27 @@ class TestCollatz (TestCase):
         i, j = collatz_read(s)
         self.assertEqual(i,  1)
         self.assertEqual(j, 10)
+
     def test_read_2(self):
-        #s = "121\n"
-        s = "-12 10\n"
-        self.assertFalse(collatz_read(s))
-    def test_read_3(self):
-        #s = "30 10 23\n"   
+        #s = "30 10 23\n"
         s = "30 10\n"
         i, j = collatz_read(s)
         self.assertEqual(i,  30)
         self.assertEqual(j, 10)
-    def test_read_4(self):
-        #s = "30 10 23\n"   
-        s = "a 10\n"
-        self.assertFalse(collatz_read(s))
-    def test_read_5(self):
+
+    def test_read_3(self):
         #s = "30 10 23\n"
-        s = "1 10 30\n"
-        self.assertFalse(collatz_read(s)) 
-    def test_read_6(self):
-        #s = "30 10 23\n"   
         s = "100 1000000\n"
         i, j = collatz_read(s)
         self.assertEqual(i, 100)
-        self.assertEqual(j, 1000000)     
+        self.assertEqual(j, 1000000)
+
+    def test_read_4(self):
+        #s = "30 10 23\n"
+        s = "999999 1001\n"
+        i, j = collatz_read(s)
+        self.assertEqual(i, 999999)
+        self.assertEqual(j, 1001)
     # ----
     # eval
     # ----
