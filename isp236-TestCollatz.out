@@ -1,0 +1,36 @@
+Traceback (most recent call last):
+  File "/Users/iansp/anaconda/bin/coverage-3.5", line 11, in <module>
+    sys.exit(main())
+  File "/Users/iansp/anaconda/lib/python3.5/site-packages/coverage/cmdline.py", line 756, in main
+    status = CoverageScript().command_line(argv)
+  File "/Users/iansp/anaconda/lib/python3.5/site-packages/coverage/cmdline.py", line 483, in command_line
+    return self.do_run(options, args)
+  File "/Users/iansp/anaconda/lib/python3.5/site-packages/coverage/cmdline.py", line 630, in do_run
+    self.run_python_file(filename, args)
+  File "/Users/iansp/anaconda/lib/python3.5/site-packages/coverage/execfile.py", line 183, in run_python_file
+    exec(code, main_mod.__dict__)
+  File "TestCollatz.py", line 81, in <module>
+    main()
+  File "/Users/iansp/anaconda/lib/python3.5/unittest/main.py", line 94, in __init__
+    self.runTests()
+  File "/Users/iansp/anaconda/lib/python3.5/unittest/main.py", line 255, in runTests
+    self.result = testRunner.run(self.test)
+  File "/Users/iansp/anaconda/lib/python3.5/unittest/runner.py", line 176, in run
+    test(result)
+  File "/Users/iansp/anaconda/lib/python3.5/unittest/suite.py", line 84, in __call__
+    return self.run(*args, **kwds)
+  File "/Users/iansp/anaconda/lib/python3.5/unittest/suite.py", line 122, in run
+    test(result)
+  File "/Users/iansp/anaconda/lib/python3.5/unittest/suite.py", line 84, in __call__
+    return self.run(*args, **kwds)
+  File "/Users/iansp/anaconda/lib/python3.5/unittest/suite.py", line 122, in run
+    test(result)
+  File "/Users/iansp/anaconda/lib/python3.5/unittest/case.py", line 648, in __call__
+    return self.run(*args, **kwds)
+  File "/Users/iansp/anaconda/lib/python3.5/unittest/case.py", line 600, in run
+    testMethod()
+  File "TestCollatz.py", line 41, in test_eval_1
+    v = collatz_eval(1, 10)
+  File "/Users/iansp/Google_Drive/Spring_2017_Sync/softwareEngineering/cs329e-collatz/Collatz.py", line 47, in collatz_eval
+    evalInt>>1
+KeyboardInterrupt
