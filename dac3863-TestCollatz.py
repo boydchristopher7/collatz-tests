@@ -15,7 +15,7 @@
 from io import StringIO
 from unittest import main, TestCase
 
-from Collatz import collatz_read, cycle_length, collatz_eval, collatz_print, collatz_solve
+from Collatz import collatz_read, collatz_eval, collatz_print, collatz_solve
 
 # -----------
 # TestCollatz
@@ -32,76 +32,57 @@ class TestCollatz (TestCase):
         i, j = collatz_read(s)
         self.assertEqual(i,  1)
         self.assertEqual(j, 10)
-
     def test_read_2(self):
-        s = "11 100\n"
+        s = "10 1\n"
         i, j = collatz_read(s)
-        self.assertEqual(i,  11)
-        self.assertEqual(j, 100)
-
+        self.assertEqual(i, 10)
+        self.assertEqual(j,  1)
     def test_read_3(self):
-        s = "127 100"
+        s = "1 1\n"
         i, j = collatz_read(s)
-        self.assertEqual(i,  127)
-        self.assertEqual(j, 100)
-
+        self.assertEqual(i, 1)
+        self.assertEqual(j,  1)
     def test_read_4(self):
-        s = "200 400"
+        s = "1 10\n"
         i, j = collatz_read(s)
-        self.assertEqual(i,  200)
-        self.assertEqual(j, 400)
-
-    # ----
-    # cycle_length
-    # ----
-
-    def test_cycle_length_1(self):
-        v = cycle_length(12, dictionary={})
-        self.assertEqual(v, 10)
-
-    def test_cycle_length_2(self):
-        v = cycle_length(19, dictionary={})
-        self.assertEqual(v, 21)
-
-    def test_cycle_length_3(self):
-        v = cycle_length(100, dictionary={})
-        self.assertEqual(v, 26)
-
-    def test_cycle_length_4(self):
-        v = cycle_length(74, dictionary={})
-        self.assertEqual(v, 23)
+        assert type(i) == int, "collatz_read did not output an int for the 1st #"
+        assert type(i) == int, "collatz_read did not output an int for the 2nd #"
+    def test_read_5(self):
+        s = "1"
+        with self.assertRaises(IndexError):
+            collatz_read(s)
 
     # ----
     # eval
     # ----
 
     def test_eval_1(self):
-        v = collatz_eval(1, 10, dictionary={})
+        v = collatz_eval(1, 10)
         self.assertEqual(v, 20)
 
     def test_eval_2(self):
-        v = collatz_eval(100, 200, dictionary={})
+        v = collatz_eval(100, 200)
         self.assertEqual(v, 125)
 
     def test_eval_3(self):
-        v = collatz_eval(201, 210, dictionary={})
+        v = collatz_eval(201, 210)
         self.assertEqual(v, 89)
 
     def test_eval_4(self):
-        v = collatz_eval(900, 1000, dictionary={})
+        v = collatz_eval(900, 1000)
         self.assertEqual(v, 174)
-
+        
     def test_eval_5(self):
-        v = collatz_eval(1000, 1500, dictionary={})
-        self.assertEqual(v, 182)
+        v = collatz_eval(753, 746)
+        self.assertEqual(v, 140)
 
     def test_eval_6(self):
-        v = collatz_eval(27, 43, dictionary={})
-        self.assertEqual(v, 112)
-
+        v = collatz_eval(5, 5)
+        self.assertEqual(v, 6)
+        
     def test_eval_7(self):
-        v = collatz_eval(20000, 15001, dictionary={})
-        self.assertEqual(v, 279)
+        with self.assertRaises(TypeError):
+            collatz_eval(5)
 
     # -----
     # print
@@ -111,27 +92,44 @@ class TestCollatz (TestCase):
         w = StringIO()
         collatz_print(w, 1, 10, 20)
         self.assertEqual(w.getvalue(), "1 10 20\n")
-
     def test_print_2(self):
         w = StringIO()
-        collatz_print(w, 27, 43, 112)
-        self.assertEqual(w.getvalue(), "27 43 112\n")
-
+        collatz_print(w, 10, 1, 20)
+        self.assertEqual(w.getvalue(), "10 1 20\n")
     def test_print_3(self):
         w = StringIO()
-        collatz_print(w, 15001, 20000, 279)
-        self.assertEqual(w.getvalue(), "15001 20000 279\n")
+        collatz_print(w, 5, 5, 6)
+        self.assertEqual(w.getvalue(), "5 5 6\n")
+    def test_print_4(self):
+        w = StringIO()
+        with self.assertRaises(TypeError):
+            collatz_print(w, 5, 5)
+
     # -----
     # solve
     # -----
 
     def test_solve(self):
-        r = StringIO(
-            "1 10\n100 200\n201 210\n900 1000\n1000 1500 182\n27 43 112\n20000 15001 279\n")
+        r = StringIO("1 10\n100 200\n201 210\n900 1000\n")
         w = StringIO()
         collatz_solve(r, w)
         self.assertEqual(
-            w.getvalue(), "1 10 20\n100 200 125\n201 210 89\n900 1000 174\n1000 1500 182\n27 43 112\n20000 15001 279\n")
+            w.getvalue(), "1 10 20\n100 200 125\n201 210 89\n900 1000 174\n")
+    def test_solve_2(self):
+        r = StringIO("800 749\n79 79\n1258 1289\n99 78\n")
+        w = StringIO()
+        collatz_solve(r, w)
+        self.assertEqual(
+            w.getvalue(), "800 749 153\n79 79 36\n1258 1289 177\n99 78 119\n")
+    def test_solve_3(self):
+        r = StringIO("500")
+        w = StringIO()
+        with self.assertRaises(IndexError):
+            collatz_solve(r, w)
+    def test_solve_4(self):
+        r = StringIO("\n")
+        w = StringIO()
+        collatz_solve(r, w)
 
 # ----
 # main
