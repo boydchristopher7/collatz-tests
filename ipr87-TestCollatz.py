@@ -50,15 +50,15 @@ class TestCollatz (TestCase):
     # -----
 
     def test_collatz_length_1(self):
-        v = collatz_length(5, {1:1})
+        v = collatz_length(5, {1: 1})
         self.assertEqual(v, 6)
 
     def test_collatz_length_2(self):
-        v = collatz_length(100, {1:1})
+        v = collatz_length(100, {1: 1})
         self.assertEqual(v, 26)
 
     def test_collatz_length_3(self):
-        v = collatz_length(201, {1:1})
+        v = collatz_length(201, {1: 1})
         self.assertEqual(v, 19)
 
     # ----
