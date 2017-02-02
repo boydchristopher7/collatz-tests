@@ -15,7 +15,7 @@
 from io import StringIO
 from unittest import main, TestCase
 
-from Collatz import collatz_read, collatz_eval, collatz_print, collatz_solve
+from Collatz import collatz_read, collatz_eval, collatz_print, collatz_solve, collatz_helper
 
 # -----------
 # TestCollatz
@@ -26,7 +26,6 @@ class TestCollatz (TestCase):
     # ----
     # read
     # ----
-
 
     def test_read_1(self):
         s = "1 10\n"
@@ -45,6 +44,22 @@ class TestCollatz (TestCase):
         i, j = collatz_read(s)
         self.assertEqual(i,  900)
         self.assertEqual(j, 1000)
+
+    # ----
+    # helper
+    # ----
+
+    def test_helper_1(self):
+        v = collatz_helper(1, 10)
+        self.assertEqual(v, 20)
+
+    def test_helper_2(self):
+        v = collatz_helper(9500, 16201)
+        self.assertEqual(v, 276)
+
+    def test_helper_3(self):
+        v = collatz_helper(962, 6358)
+        self.assertEqual(v, 262)
 
     # ----
     # eval
@@ -89,7 +104,6 @@ class TestCollatz (TestCase):
         collatz_print(w, 146, 998513, 525)
         self.assertEqual(w.getvalue(), "146 998513 525\n")
 
-
     # -----
     # solve
     # -----
@@ -100,12 +114,14 @@ class TestCollatz (TestCase):
         collatz_solve(r, w)
         self.assertEqual(
             w.getvalue(), "1 10 20\n9500 16201 276\n146 998513 525\n145998 152014 370\n")
+
     def test_solve2(self):
         r = StringIO("7894 84516\n9855 78\n8493 94516\n")
         w = StringIO()
         collatz_solve(r, w)
         self.assertEqual(
             w.getvalue(), "7894 84516 351\n9855 78 262\n8493 94516 351\n")
+
     def test_solve3(self):
         r = StringIO("4518 945163\n15493 451987\n95 154886\n")
         w = StringIO()
