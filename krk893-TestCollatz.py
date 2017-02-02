@@ -100,7 +100,7 @@ class TestCollatz (TestCase):
     #------------
     # getNewValue
     #------------
-    """
+    
     def test_getNewValue(self):
         v = getNewValue(9)
         self.assertEqual(v, 20)
@@ -112,7 +112,7 @@ class TestCollatz (TestCase):
     def test_getNewValue2(self):
         v = getNewValue(10)
         self.assertEqual(v, 7)
-    """
+    
     # -----
     # solve
     # -----
