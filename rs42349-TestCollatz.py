@@ -27,23 +27,24 @@ class TestCollatz (TestCase):
     # read
     # ----
 
-    def test_read(self):
+    def test_read_1(self):
         s = "1 10\n"
         i, j = collatz_read(s)
         self.assertEqual(i,  1)
         self.assertEqual(j, 10)
-
+        
     def test_read_2(self):
-        s = "-5 100\n"
+        s = "11 100\n"
         i, j = collatz_read(s)
-        self.assertEqual(i,  -5)
+        self.assertEqual(i,  11)
         self.assertEqual(j, 100)
-
+        
     def test_read_3(self):
-        s = "1000 10\n"
+        s = "100 1\n"
         i, j = collatz_read(s)
-        self.assertEqual(i,  1000)
-        self.assertEqual(j, 10)
+        self.assertEqual(i,  100)
+        self.assertEqual(j, 1)
+        
 
     # ----
     # eval
@@ -66,58 +67,42 @@ class TestCollatz (TestCase):
         self.assertEqual(v, 174)
 
     def test_eval_5(self):
-        v = collatz_eval(1, 1000)
-        self.assertEqual(v, 179)
+        v = collatz_eval(6001, 6099)
+        self.assertEqual(v, 187)
 
     def test_eval_6(self):
-        v = collatz_eval(10, 1)
-        self.assertEqual(v, 20)
+        v = collatz_eval(500, 1)
+        self.assertEqual(v, 144)
+
+    def test_eval_7(self):
+        v = collatz_eval(5, 5)
+        self.assertEqual(v, 6)
 
     # -----
     # print
     # -----
 
-    def test_print(self):
+    def test_print_1(self):
         w = StringIO()
         collatz_print(w, 1, 10, 20)
         self.assertEqual(w.getvalue(), "1 10 20\n")
 
     def test_print_2(self):
         w = StringIO()
-        collatz_print(w, 1, 2, 3)
-        self.assertEqual(w.getvalue(), "1 2 3\n")
+        collatz_print(w, 500, 1, 144)
+        self.assertEqual(w.getvalue(), "500 1 144\n")
 
     def test_print_3(self):
         w = StringIO()
-        collatz_print(w, 10, 100, 200)
-        self.assertEqual(w.getvalue(), "10 100 200\n")
+        collatz_print(w, 900, 1000, 174)
+        self.assertEqual(w.getvalue(), "900 1000 174\n")
 
-    def test_print_4(self):
-        w = StringIO()
-        collatz_print(w, 800, 1000, 179)
-        self.assertEqual(w.getvalue(), "800 1000 179\n")
 
-    #------------
-    # getNewValue
-    #------------
-    
-    def test_getNewValue(self):
-        v = getNewValue(9)
-        self.assertEqual(v, 20)
-
-    def test_getNewValue1(self):
-        v = getNewValue(3)
-        self.assertEqual(v, 8)
-
-    def test_getNewValue2(self):
-        v = getNewValue(10)
-        self.assertEqual(v, 7)
-    
     # -----
     # solve
     # -----
 
-    def test_solve(self):
+    def test_solve_1(self):
         r = StringIO("1 10\n100 200\n201 210\n900 1000\n")
         w = StringIO()
         collatz_solve(r, w)
@@ -125,25 +110,18 @@ class TestCollatz (TestCase):
             w.getvalue(), "1 10 20\n100 200 125\n201 210 89\n900 1000 174\n")
 
     def test_solve_2(self):
-        r = StringIO("900 1000\n800 899\n6000 6200\n")
+        r = StringIO("6001 6099\n500 1\n5 5\n1 999\n")
         w = StringIO()
         collatz_solve(r, w)
         self.assertEqual(
-            w.getvalue(), "900 1000 174\n800 899 179\n6000 6200 262\n")
+            w.getvalue(), "6001 6099 187\n500 1 144\n5 5 6\n1 999 179\n")
 
     def test_solve_3(self):
-        r = StringIO("1 10\n10 1\n1 1\n")
+        r = StringIO("1 77\n9999 8\n100000 100\n301 200\n")
         w = StringIO()
         collatz_solve(r, w)
         self.assertEqual(
-            w.getvalue(), "1 10 20\n10 1 20\n1 1 1\n")
-
-    def test_solve_4(self):
-        r = StringIO(" ")
-        w = StringIO()
-        collatz_solve(r, w)
-        self.assertEqual(
-            w.getvalue(), "")
+            w.getvalue(), "1 77 116\n9999 8 262\n100000 100 351\n301 200 128\n")
 
 # ----
 # main
@@ -154,19 +132,12 @@ if __name__ == "__main__":
 
 """ #pragma: no cover
 % coverage-3.5 run --branch TestCollatz.py >  TestCollatz.out 2>&1
-
-
 % cat TestCollatz.out
 .......
 ----------------------------------------------------------------------
 Ran 7 tests in 0.000s
 OK
-
-
 % coverage-3.5 report -m                   >> TestCollatz.out
-
-
-
 % cat TestCollatz.out
 .......
 ----------------------------------------------------------------------
