@@ -17,7 +17,6 @@ from unittest import main, TestCase
 
 from Collatz import collatz_read, collatz_eval, collatz_print, collatz_solve
 
-
 # -----------
 # TestCollatz
 # -----------
@@ -28,29 +27,23 @@ class TestCollatz (TestCase):
     # read
     # ----
 
-    def test_read_1(self):
+    def test_read(self):
         s = "1 10\n"
         i, j = collatz_read(s)
         self.assertEqual(i,  1)
         self.assertEqual(j, 10)
 
+    def test_read_1(self):
+        s = "123 500\n"
+        i, j = collatz_read(s)
+        self.assertEqual(i,  123)
+        self.assertEqual(j, 500)
+
     def test_read_2(self):
-        s = "1 5\n"
+        s = "999999 1000000\n"
         i, j = collatz_read(s)
-        self.assertEqual(i,  1)
-        self.assertEqual(j, 5)
-
-    def test_read_3(self):
-        s = "999 1000"
-        i, j = collatz_read(s)
-        self.assertEqual(i,  999)
-        self.assertEqual(j, 1000)
-
-    def test_read_4(self):
-        s = "9 9"
-        i, j = collatz_read(s)
-        self.assertEqual(i,  9)
-        self.assertEqual(j, 9)
+        self.assertEqual(i,  999999)
+        self.assertEqual(j, 1000000)
 
     # ----
     # eval
@@ -73,69 +66,60 @@ class TestCollatz (TestCase):
         self.assertEqual(v, 174)
 
     def test_eval_5(self):
-        v = collatz_eval(254727, 561760)
-        self.assertEqual(v, 470)
+        v = collatz_eval(1,1)
+        self.assertEqual(v,1)
 
     def test_eval_6(self):
-        v = collatz_eval(1, 1)
-        self.assertEqual(v, 1)
+        v = collatz_eval(900000,1000000)
+        self.assertEqual(v,507)
 
     def test_eval_7(self):
-        v = collatz_eval(10, 1)
-        self.assertEqual(v, 20)
-
-    def test_eval_8(self):
-        v = collatz_eval(999999, 1)
-        self.assertEqual(v, 525)
-
-    def test_eval_9(self):
-        v = collatz_eval(450303, 503778)
-        self.assertEqual(v, 444)
-
+        v = collatz_eval(1234,56789)
+        self.assertEqual(v,340)
 
     # -----
     # print
     # -----
 
-    def test_print_1(self):
+    def test_print(self):
         w = StringIO()
         collatz_print(w, 1, 10, 20)
         self.assertEqual(w.getvalue(), "1 10 20\n")
 
+    def test_print_1(self):
+        w = StringIO()
+        collatz_print(w, 1234, 56789, 340)
+        self.assertEqual(w.getvalue(), "1234 56789 340\n")
+
     def test_print_2(self):
         w = StringIO()
-        collatz_print(w, 254727, 561760, 470)
-        self.assertEqual(w.getvalue(), "254727 561760 470\n")
-
-    def test_print_3(self):
-        w = StringIO()
-        collatz_print(w, 450303, 503778, 444)
-        self.assertEqual(w.getvalue(), "450303 503778 444\n")
+        collatz_print(w, 43356, 43357, 45)
+        self.assertEqual(w.getvalue(), "43356 43357 45\n")
 
     # -----
     # solve
     # -----
 
-    def test_solve_1(self):
+    def test_solve(self):
         r = StringIO("1 10\n100 200\n201 210\n900 1000\n")
         w = StringIO()
         collatz_solve(r, w)
         self.assertEqual(
             w.getvalue(), "1 10 20\n100 200 125\n201 210 89\n900 1000 174\n")
 
-    def test_solve_2(self):
-        r = StringIO("1 9\n100 199\n201 209\n900 999\n")
+    def test_solve_1(self):
+        r = StringIO("1 1\n1234 56789\n900000 1000000\n15 1996\n")
         w = StringIO()
         collatz_solve(r, w)
         self.assertEqual(
-            w.getvalue(), "1 9 20\n100 199 125\n201 209 89\n900 999 174\n")
+            w.getvalue(), "1 1 1\n1234 56789 340\n900000 1000000 507\n15 1996 182\n")
 
-    def test_solve_3(self):
-        r = StringIO("2 10\n101 200\n202 210\n901 1000\n")
+    def test_solve_2(self):
+        r = StringIO("999 9999\n4321 98765\n5000 6000\n10000 20000\n")
         w = StringIO()
         collatz_solve(r, w)
         self.assertEqual(
-            w.getvalue(), "2 10 20\n101 200 125\n202 210 89\n901 1000 174\n")
+            w.getvalue(), "999 9999 262\n4321 98765 351\n5000 6000 236\n10000 20000 279\n")
 
 # ----
 # main
