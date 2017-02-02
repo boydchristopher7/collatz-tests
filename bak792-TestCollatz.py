@@ -83,6 +83,10 @@ class TestCollatz (TestCase):
         v = collatz_eval(900, 1000)
         self.assertEqual(v, 174)
 
+    def test_eval_5(self):
+        v = collatz_eval(200, 100)
+        self.assertEqual(v, 125)
+
     # -----
     # cache
     # -----
@@ -147,4 +151,16 @@ OK
 % coverage-3.5 report -m                   >> TestCollatz.out
 
 
+
+% cat TestCollatz.out
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+OK
+Name             Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------
+Collatz.py          12      0      2      0   100%
+TestCollatz.py      32      0      0      0   100%
+------------------------------------------------------------
+TOTAL               44      0      2      0   100%
 """
