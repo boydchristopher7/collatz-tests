@@ -85,30 +85,6 @@ class TestCollatz (TestCase):
         self.assertEqual(w.getvalue(), "89 201 210\n")
 
     # -----
-    # count
-    # -----
-
-    def test_count(self):
-        r = StringIO("1 10\n100 200\n201 210\n900 1000\n")
-        w = StringIO()
-        collatz_count(r, w)
-        self.assertEqual(
-            w.getvalue(), "1 10 20\n100 200 125\n201 210 89\n900 1000 174\n")
-
-    def test_count2(self):
-        r = StringIO("752394 982345\n23443 26456\n")
-        w = StringIO()
-        collatz_count(r, w)
-        self.assertEqual(
-            w.getvalue(), "752394 982345 525\n23443 26456 282\n")
-
-    def test_count3(self):
-        r = StringIO("8888 99999\n543543 894065\n")
-        w = StringIO()
-        collatz_count(r, w)
-        self.assertEqual(
-            w.getvalue(), "8888 99999 351\n543543 894065 525\n")
-    # -----
     # solve
     # -----        
 
