@@ -40,9 +40,10 @@ class TestCollatz (TestCase):
         self.assertEqual(j, 90)
 
     def test_read_3(self):
-        s = "-100 90\n"
-        result = collatz_read(s)
-        self.assertFalse(result)
+        s = "1 10\n"
+        i, j = collatz_read(s)
+        self.assertEqual(i, 1)
+        self.assertEqual(j, 10)
 
     # ----
     # calc_cycle_length
