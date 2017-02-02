@@ -15,7 +15,7 @@
 from io import StringIO
 from unittest import main, TestCase
 
-from Collatz import collatz_read, collatz_eval, collatz_print, collatz_solve
+from Collatz import collatz_read, cycle_length, collatz_eval, collatz_print, collatz_solve
 
 # -----------
 # TestCollatz
@@ -44,6 +44,7 @@ class TestCollatz (TestCase):
         i, j = collatz_read(s)
         self.assertEqual(i,  127)
         self.assertEqual(j, 100)
+
     def test_read_4(self):
         s = "200 400"
         i, j = collatz_read(s)
@@ -51,35 +52,55 @@ class TestCollatz (TestCase):
         self.assertEqual(j, 400)
 
     # ----
+    # cycle_length
+    # ----
+
+    def test_cycle_length_1(self):
+        v = cycle_length(12, dictionary={})
+        self.assertEqual(v, 10)
+
+    def test_cycle_length_2(self):
+        v = cycle_length(19, dictionary={})
+        self.assertEqual(v, 21)
+
+    def test_cycle_length_3(self):
+        v = cycle_length(100, dictionary={})
+        self.assertEqual(v, 26)
+
+    def test_cycle_length_4(self):
+        v = cycle_length(74, dictionary={})
+        self.assertEqual(v, 23)
+
+    # ----
     # eval
     # ----
 
     def test_eval_1(self):
-        v = collatz_eval(1, 10, dictionary = {})
+        v = collatz_eval(1, 10, dictionary={})
         self.assertEqual(v, 20)
 
     def test_eval_2(self):
-        v = collatz_eval(100, 200, dictionary = {})
+        v = collatz_eval(100, 200, dictionary={})
         self.assertEqual(v, 125)
 
     def test_eval_3(self):
-        v = collatz_eval(201, 210, dictionary = {})
+        v = collatz_eval(201, 210, dictionary={})
         self.assertEqual(v, 89)
 
     def test_eval_4(self):
-        v = collatz_eval(900, 1000, dictionary = {})
+        v = collatz_eval(900, 1000, dictionary={})
         self.assertEqual(v, 174)
 
     def test_eval_5(self):
-        v = collatz_eval(1000, 1500, dictionary = {})
+        v = collatz_eval(1000, 1500, dictionary={})
         self.assertEqual(v, 182)
 
     def test_eval_6(self):
-        v = collatz_eval(27, 43, dictionary = {})
+        v = collatz_eval(27, 43, dictionary={})
         self.assertEqual(v, 112)
 
     def test_eval_7(self):
-        v = collatz_eval(15001, 20000, dictionary = {})
+        v = collatz_eval(20000, 15001, dictionary={})
         self.assertEqual(v, 279)
 
     # -----
@@ -99,17 +120,18 @@ class TestCollatz (TestCase):
     def test_print_3(self):
         w = StringIO()
         collatz_print(w, 15001, 20000, 279)
-        self.assertEqual(w.getvalue(), "15001 20000 279\n")        
+        self.assertEqual(w.getvalue(), "15001 20000 279\n")
     # -----
     # solve
     # -----
 
     def test_solve(self):
-        r = StringIO("1 10\n100 200\n201 210\n900 1000\n1000 1500 182\n27 43 112\n15001 20000 279\n")
+        r = StringIO(
+            "1 10\n100 200\n201 210\n900 1000\n1000 1500 182\n27 43 112\n20000 15001 279\n")
         w = StringIO()
         collatz_solve(r, w)
         self.assertEqual(
-            w.getvalue(), "1 10 20\n100 200 125\n201 210 89\n900 1000 174\n1000 1500 182\n27 43 112\n15001 20000 279\n")
+            w.getvalue(), "1 10 20\n100 200 125\n201 210 89\n900 1000 174\n1000 1500 182\n27 43 112\n20000 15001 279\n")
 
 # ----
 # main
