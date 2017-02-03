@@ -1,0 +1,14 @@
+# Coverage is 97% due to code checking for blank line to get acceptance from Sphere.
+# Did not include in unit tests, because acceptance tests cannot have blank lines. 
+
+.........................
+----------------------------------------------------------------------
+Ran 25 tests in 0.552s
+
+OK
+Name             Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------
+Collatz.py          51      1     16      1    97%   112, 111->112
+TestCollatz.py      97      0      0      0   100%
+------------------------------------------------------------
+TOTAL              148      1     16      1    99%
