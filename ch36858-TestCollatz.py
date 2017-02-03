@@ -15,7 +15,7 @@
 from io import StringIO
 from unittest import main, TestCase
 
-from Collatz import collatz_read, collatz_eval, collatz_print, collatz_solve
+from Collatz import collatz_read, collatz_eval, collatz_print, collatz_solve, maxLength
 
 # -----------
 # TestCollatz
@@ -45,8 +45,18 @@ class TestCollatz (TestCase):
         self.assertEqual(i,  21)
         self.assertEqual(j, 30)
 
+    # Max_Length
+    def test_maxlength1(self):
+        v = collatz_eval(1, 10)
+        self.assertEqual(v, 20)
 
+    def test_maxlength2(self):
+        v = collatz_eval(100, 200)
+        self.assertEqual(v, 125)
 
+    def test_maxlength3(self):
+        v = collatz_eval(201, 210)
+        self.assertEqual(v, 89)
 
     # ----
     # eval
@@ -68,8 +78,6 @@ class TestCollatz (TestCase):
         v = collatz_eval(900, 1000)
         self.assertEqual(v, 174)
 
-
-
     def test_eval_5(self):
         v = collatz_eval(300, 400)
         self.assertEqual(v, 144)
@@ -86,7 +94,6 @@ class TestCollatz (TestCase):
         v = collatz_eval(601, 700)
         self.assertEqual(v, 145)
 
-
     def test_eval_9(self):
         v = collatz_eval(701, 800)
         self.assertEqual(v, 171)
@@ -102,8 +109,6 @@ class TestCollatz (TestCase):
     def test_eval_12(self):
         v = collatz_eval(1001, 1100)
         self.assertEqual(v, 169)
-
-
 
     # -----
     # print
