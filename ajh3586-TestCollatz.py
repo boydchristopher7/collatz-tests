@@ -35,22 +35,22 @@ class TestCollatz (TestCase):
         self.assertEqual(j, 10)
 
     def test_read_2(self):
-        s = "1 1\n"
+        s = "1 5\n"
         i, j = collatz_read(s)
         self.assertEqual(i,  1)
-        self.assertEqual(j, 1)
+        self.assertEqual(j, 5)
 
     def test_read_3(self):
-        s = "9999 10000"
+        s = "999 1000"
         i, j = collatz_read(s)
-        self.assertEqual(i,  9999)
-        self.assertEqual(j, 10000)
+        self.assertEqual(i,  999)
+        self.assertEqual(j, 1000)
 
     def test_read_4(self):
-        s = "6 6"
+        s = "9 9"
         i, j = collatz_read(s)
-        self.assertEqual(i,  6)
-        self.assertEqual(j, 6)
+        self.assertEqual(i,  9)
+        self.assertEqual(j, 9)
 
     # ----
     # eval
@@ -73,8 +73,8 @@ class TestCollatz (TestCase):
         self.assertEqual(v, 174)
 
     def test_eval_5(self):
-        v = collatz_eval(9, 9)
-        self.assertEqual(v, 20)
+        v = collatz_eval(254727, 561760)
+        self.assertEqual(v, 470)
 
     def test_eval_6(self):
         v = collatz_eval(1, 1)
@@ -85,12 +85,12 @@ class TestCollatz (TestCase):
         self.assertEqual(v, 20)
 
     def test_eval_8(self):
-        v = collatz_eval(1, 999999)
+        v = collatz_eval(999999, 1)
         self.assertEqual(v, 525)
 
     def test_eval_9(self):
-        v = collatz_eval(837800, 999999)
-        self.assertEqual(v, 507)
+        v = collatz_eval(450303, 503778)
+        self.assertEqual(v, 444)
 
 
     # -----
@@ -104,13 +104,13 @@ class TestCollatz (TestCase):
 
     def test_print_2(self):
         w = StringIO()
-        collatz_print(w, 2, 10, 20)
-        self.assertEqual(w.getvalue(), "2 10 20\n")
+        collatz_print(w, 254727, 561760, 470)
+        self.assertEqual(w.getvalue(), "254727 561760 470\n")
 
     def test_print_3(self):
         w = StringIO()
-        collatz_print(w, 100, 200, 20)
-        self.assertEqual(w.getvalue(), "100 200 20\n")
+        collatz_print(w, 450303, 503778, 444)
+        self.assertEqual(w.getvalue(), "450303 503778 444\n")
 
     # -----
     # solve
