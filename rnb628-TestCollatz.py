@@ -64,6 +64,29 @@ class TestCollatz (TestCase):
         v = collatz_eval(900, 1000)
         self.assertEqual(v, 174)
 
+
+    def test_eval_5(self):
+        v = collatz_eval(500, 10)
+        self.assertEqual(v, 144)
+
+    #---
+    #cycle length
+    #----
+    
+    def test_cycle_length_1(self):
+        x = cycle_length(1)
+        self.assertEqual(x,1)
+
+
+    def test_cycle_length_2(self):
+        x = cycle_length(56)
+        self.assertEqual(x,20)
+
+
+    def test_cycle_length_3(self):
+        x = cycle_length(1043)
+        self.assertEqual(x,125)
+
     # -----
     # print
     # -----
